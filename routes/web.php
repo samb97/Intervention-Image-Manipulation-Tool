@@ -15,6 +15,5 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('modify/{rules}/{image_url}', 'InterventionController@index')
-    ->where('rules', '[a-zA-Z0-9\-]+')
-    ->where('image_url', '[a-zA-Z0-9\-_\.\/]+');
+Route::get('modify/{image_url}', 'InterventionController@index')
+        ->where('image_url', '.*');
