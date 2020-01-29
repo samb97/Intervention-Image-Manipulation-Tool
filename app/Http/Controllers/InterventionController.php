@@ -11,11 +11,19 @@ class InterventionController extends Controller
     {
         $image = Image::make($image_url);
 
+        /* Fill */
         if ($request->query('fill') === 'true') {
-            $image->fit($request->query('width'), $request->query('height'), function($constraint) {
-                $constraint->upsize();
+            $image->fit($request->query('width'), $request->query('height'), function($constraint) use ($request) {
+                if ($request->query('upsize')) {
+                    $constraint->upsize();
+                }
             });
-        } else {
+
+            return $image->response();
+        }
+        
+        /* No Fill (Contain) */
+        if ($request->query('fill') !== 'true'){
             $image->resize($request->query('width'), $request->query('height'), function($constraint) use ($request) {
                 $constraint->aspectRatio();
     
@@ -23,8 +31,9 @@ class InterventionController extends Controller
                     $constraint->upsize();
                 }
             });
+
+            return $image->response();
         }
 
-        return $image->response();
     }
 }
