@@ -14,3 +14,7 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('modify/{rules}/{file}', 'InterventionController@index')
+    ->where('rules', '[a-zA-Z0-9\-]+')
+    ->where('file', '[a-zA-Z0-9\-_\.\/]+');
