@@ -14,3 +14,6 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('modify/{image_url}', 'InterventionController@index')
+        ->where('image_url', '.*');
